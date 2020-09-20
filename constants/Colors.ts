@@ -9,6 +9,8 @@ const colors = {
   darkOrange: "#EA9010",
 };
 
+
+
 export default {
   light: {
     text: '#000',
@@ -24,4 +26,7 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
   },
+  celeste: {
+    text: '#B1F8F2',
+  }
 };

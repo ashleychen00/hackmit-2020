@@ -4,9 +4,11 @@ import { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
-//import colors from '../constants/Colors';
+import Colors from '../constants/Colors';
 import { Text, View } from 'react-native'; // '../components/Themed';
 import { TouchableOpacity } from 'react-native';
+
+import ListComponent from "./list.component";
 
 let padToTwo = (number) => (number <= 9 ? `0${number}`:number);
 
@@ -17,7 +19,6 @@ const colors = {
   lightOrange: "#F2B880",
   darkOrange: "#EA9010",
 };
-
 class TimerContainer extends Component {
 	constructor(props) {
 		super(props);
@@ -28,7 +29,60 @@ class TimerContainer extends Component {
 			msec: 0,
 			test: 'test',
 		}
+
+		this.interval = null;
+		this.intervalArr = [];
 	}
+
+	handleToggle = () => {
+		this.setState(
+		{
+			start: !this.state.start
+		},
+		() => this.handleStart()
+		);
+	};
+
+	handleStart = () => {
+		if (this.state.start) {
+			this.interval = setInterval(() => {
+				if (this.state.msec !== 99) {
+					this.setState({
+						msec: this.state.msec + 1
+					});
+				} else if (this.state.sec !== 59) {
+					this.setState({
+						msec: 0,
+						sec: ++this.state.sec
+					});
+				} else {
+					this.setState({
+						msec: 0,
+						sec: 0,
+						min: ++this.state.min
+					});
+				}
+			}, 1);
+		} else {
+			clearInterval(this.interval);
+		}
+	};
+
+	handleReset =  (min, sec, msec) => {
+
+		this.intervalArr = [
+			...this.intervalArr, 
+			{min, sec, msec}
+		]
+
+		this.setState({
+			min:0,
+			sec:0,
+			msec:0,
+			start: false
+		});
+		clearInterval(this.interval);
+	};
 
 	render() {
 		return(
@@ -42,14 +96,16 @@ class TimerContainer extends Component {
 				 </View>	
 
 				 <View style={styles.buttonParent}>
-				 	<TouchableOpacity style={styles.button}><Text style={styles.buttonText}>Start</Text></TouchableOpacity>
-				 	<TouchableOpacity style={styles.button}><Text style={styles.buttonText}>Stop</Text></TouchableOpacity>
+				 	<TouchableOpacity style={styles.button} onPress={this.handleToggle}><Text style={styles.buttonText}>{!this.state.start? 'Start': 'Stop'}</Text></TouchableOpacity>
+				 	<TouchableOpacity style={styles.button} onPress={this.handleReset}><Text style={styles.buttonText}>Reset</Text></TouchableOpacity>
 				 </View>
+
+				 <ListComponent interval={this.intervalArr}/>
 			</View>
 
 		);
 
-	};
+	}
 }
 
 const styles= StyleSheet.create({
@@ -67,7 +123,7 @@ const styles= StyleSheet.create({
 
 	child: {
 		fontSize: 40,
-		color: colors.lightOrange,
+		color: Colors.celeste,
 	},
 
 	buttonParent: {
@@ -81,11 +137,11 @@ const styles= StyleSheet.create({
 		backgroundColor: colors.dark,
 		paddingTop: "5%",
 		paddingBottom: "5%",
-		paddingLeft: "5%",
-		paddingRight: "5%",
+		paddingLeft: "15%",
+		paddingRight: "15%",
 		display: "flex",
 		borderRadius: 20,
-		borderWidth: 1,
+		borderWidth: 2,
 		borderColor: "#694966",
 		height: 60,
 	},

@@ -5,7 +5,7 @@ let padToTwo = (number) => (number <= 9 ? `0${number}`: number);
 
 class ListComponent extends Component {
     render() {
-        return (
+            return (
             <ScrollView style={styles.scroll}>
                 <FlatList
                     data={this.props.lap}
@@ -17,7 +17,7 @@ class ListComponent extends Component {
 }
 
 const styles = StyleSheet.create({
-    scroll: {
+     scroll: {
         maxHeight: "63%",
         backgroundColor: "#C89933",
     },
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         marginBottom: 1
     },
+    
 })
 
 
