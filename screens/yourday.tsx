@@ -3,10 +3,12 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import 'react-native-svg';
 import ProgressCircleExample from '../components/circle'
-
+  
 export default function YourDay() {
   return (
+    <View>
       <ProgressCircleExample></ProgressCircleExample>
+    </View>
   );
 }
 
