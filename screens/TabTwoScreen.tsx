@@ -1,22 +1,58 @@
 import React, { Component } from 'react';
 import {TouchableOpacity, Keyboard, TextInput, ScrollView, Button, StyleSheet, Text, View } from 'react-native';
+import { loadSettings, saveSettings } from './storage/dataStorage';
 
 export default class SettingsScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = { name: '' }
+  
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+  } 
+
+  async componentDidMount() {
+    const initialState = await loadSettings();
+  
+    this.setState(initialState);
+  }
+
+  handleNameChange(name) {
+    this.setState({ name });
+    console.log(name);
+  };
+
+  handleSubmit() {
+    saveSettings(this.state);
+    console.log(this.state.name);
+    this.setState({
+      name: ''
+    });
+  }; 
+  
+  
+  
+
   render() {
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.header}>Add Activity</Text>
+          <Text style={styles.header}>hi Activity</Text>
           <ScrollView>
             <View style={styles.inputContainer}>
-              <TextInput
+            <TextInput
               style={styles.textInput}
-              placeholder="Add your own activity!"
+              placeholder="Your name"
               maxLength={20}
               onBlur={Keyboard.dismiss}
+              value={this.state.name}
+              onChangeText={this.handleNameChange}
             />
             <TouchableOpacity
-              style={styles.saveButton}>
+              style={styles.saveButton}
+              onPress={this.handleSubmit}>
               <Text style={styles.saveButtonText}>Save</Text>
             </TouchableOpacity>
             </View>
