@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const STORAGE_KEY = 'SETTINGS';
 
@@ -21,3 +21,5 @@ export const loadSettings = async () => {
 export const saveSettings = (settings) => {
   AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
 }
+
+

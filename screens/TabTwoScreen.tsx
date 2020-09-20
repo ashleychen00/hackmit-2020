@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import {TouchableOpacity, Keyboard, TextInput, ScrollView, Button, StyleSheet, Text, View } from 'react-native';
-import { loadSettings, saveSettings } from './storage/dataStorage';
+import { loadSettings, saveSettings} from './storage/dataStorage';
+import AsyncStorage from '@react-native-community/async-storage';
+
+
+
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
   
-    this.state = { name: '' }
+    this.state = { date:'', hours: '', mins: '' }
   
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,25 +19,24 @@ export default class SettingsScreen extends React.Component {
 
   async componentDidMount() {
     const initialState = await loadSettings();
-  
     this.setState(initialState);
   }
 
-  handleNameChange(name) {
-    this.setState({ name });
-    console.log(name);
+  handleNameChange(hours) {
+    this.setState({ hours });
+    console.log(hours);
   };
 
   handleSubmit() {
     saveSettings(this.state);
-    console.log(this.state.name);
+    console.log(this.state);
     this.setState({
-      name: ''
+      hours: ''
     });
   }; 
-  
-  
-  
+
+
+
 
   render() {
     return (
@@ -44,10 +47,10 @@ export default class SettingsScreen extends React.Component {
             <View style={styles.inputContainer}>
             <TextInput
               style={styles.textInput}
-              placeholder="Your name"
+              placeholder="Time?"
               maxLength={20}
               onBlur={Keyboard.dismiss}
-              value={this.state.name}
+              value={this.state.hours}
               onChangeText={this.handleNameChange}
             />
             <TouchableOpacity
