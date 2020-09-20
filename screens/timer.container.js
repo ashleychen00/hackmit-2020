@@ -4,10 +4,19 @@ import { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
+//import colors from '../constants/Colors';
 import { Text, View } from 'react-native'; // '../components/Themed';
 import { TouchableOpacity } from 'react-native';
 
 let padToTwo = (number) => (number <= 9 ? `0${number}`:number);
+
+const colors = {
+  celeste: "#B1F8F2",
+  dark: "#2E3532",
+  purple: "#94849B",
+  lightOrange: "#F2B880",
+  darkOrange: "#EA9010",
+};
 
 class TimerContainer extends Component {
 	constructor(props) {
@@ -25,11 +34,6 @@ class TimerContainer extends Component {
 		return(
 			// display time
 			<View style={styles.container}>
-				<View style={styles.parent}>
-					<Text style={styles.child}>
-						{this.state.test}
-					</Text>
-				</View>
 
 				 <View style={styles.parent}>
 				 	<Text style={styles.child}>{padToTwo(this.state.min) + ' : '}</Text>
@@ -55,7 +59,7 @@ const styles= StyleSheet.create({
 		borderWidth:1,
 		borderRadius: 80,
 		borderColor: "#694966",
-		backgroundColor: "#694966",
+		backgroundColor: colors.dark,
 		paddingLeft:"8%",
 		paddingRight:"8%",
 		paddingBottom: ".5%",
@@ -63,7 +67,7 @@ const styles= StyleSheet.create({
 
 	child: {
 		fontSize: 40,
-		color: "#C89933",
+		color: colors.lightOrange,
 	},
 
 	buttonParent: {
@@ -74,7 +78,7 @@ const styles= StyleSheet.create({
 	},
 
 	button: {
-		backgroundColor: "#694966",
+		backgroundColor: colors.dark,
 		paddingTop: "5%",
 		paddingBottom: "5%",
 		paddingLeft: "5%",
@@ -87,7 +91,7 @@ const styles= StyleSheet.create({
 	},
 
 	buttonText: {
-		color:"#C89933",
+		color:colors.lightOrange,
 		fontSize: 20,
 		alignSelf: "center"
 

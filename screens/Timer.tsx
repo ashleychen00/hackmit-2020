@@ -8,6 +8,14 @@ import { Text, View } from '../components/Themed';
 
 import TimerContainer from "./timer.container";
 
+const colors = {
+  celeste: "#B1F8F2",
+  dark: "#2E3532",
+  purple: "#94849B",
+  lightOrange: "#F2B880",
+  darkOrange: "#EA9010",
+};
+
 export default function TimerScreen() {
   return (
     <View style={styles.container}>
@@ -23,7 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     display: "flex",
-    backgroundColor: '#DBD053',
+    backgroundColor: colors.lightOrange,
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: "8%",
