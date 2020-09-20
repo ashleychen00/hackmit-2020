@@ -10,9 +10,10 @@ export default class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
   
-    this.state = { date:'', hours: '', mins: '' }
+    this.state = { name:'', date:'', hours: '', mins: '' }
   
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleHoursChange = this.handleHoursChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
   } 
@@ -22,17 +23,20 @@ export default class SettingsScreen extends React.Component {
     this.setState(initialState);
   }
 
-  handleNameChange(hours) {
+  handleHoursChange(hours) {
     this.setState({ hours });
     console.log(hours);
+  };
+
+  handleNameChange(name) {
+    this.setState({ name });
+    console.log(name);
   };
 
   handleSubmit() {
     saveSettings(this.state);
     console.log(this.state);
-    this.setState({
-      hours: ''
-    });
+
   }; 
 
 
@@ -47,11 +51,19 @@ export default class SettingsScreen extends React.Component {
             <View style={styles.inputContainer}>
             <TextInput
               style={styles.textInput}
-              placeholder="Time?"
+              placeholder="Activity Name?"
+              maxLength={20}
+              onBlur={Keyboard.dismiss}
+              value={this.state.name}
+              onChangeText={this.handleNameChange}
+            />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Time in Hours"
               maxLength={20}
               onBlur={Keyboard.dismiss}
               value={this.state.hours}
-              onChangeText={this.handleNameChange}
+              onChangeText={this.handleHoursChange}
             />
             <TouchableOpacity
               style={styles.saveButton}

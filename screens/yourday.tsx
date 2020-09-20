@@ -3,19 +3,24 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import 'react-native-svg';
 import ProgressCircleExample from '../components/circle'
+import Circle2 from '../components/circle'
+
 import {loadSettings} from './storage/dataStorage'
+import { State } from 'react-native-gesture-handler';
+import { ProgressCircle } from 'react-native-svg-charts';
 
 
 export default class YourDay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {hours:'', mins: '', secs:''}
+    this.state = {name:'', hours:'', mins: '', secs:''}
   }
 
   async componentDidMount() {
     try {
       let state = await loadSettings();
-      this.setState({hours: state.hours})
+      this.setState({hours: state.hours});
+      console.log(this.state.hours);
     } catch (error) {
       console.log('Error fetching time data', error);
     }
@@ -23,12 +28,14 @@ export default class YourDay extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>hi there</Text>
-        <Text>{this.state.hours}</Text>
-
-        <ProgressCircleExample></ProgressCircleExample>
+      <>
+      <View>
+        <ProgressCircleExample hours = {this.state.hours}></ProgressCircleExample>
       </View>
+      <View style={styles.container}>
+        <Text>Hours: {this.state.hours}</Text>
+      </View>
+      </>
     );
   }
 }
